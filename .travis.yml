@@ -1,0 +1,23 @@
+language: common-lisp
+
+env:
+  global:
+    - PATH=~/.roswell/bin:$PATH
+    - ROSWELL_BRANCH=master
+    - ROSWELL_INSTALL_DIR=$HOME/.roswell
+    - COVERAGE_EXCLUDE=t:examples
+  matrix:
+    - LISP=sbcl-bin COVERALLS=true
+    
+#before_install:
+#  - sudo apt-get install -y ...
+
+install:
+  - curl -L https://raw.githubusercontent.com/snmsts/roswell/$ROSWELL_BRANCH/scripts/install-for-ci.sh | sh
+  - ros install prove
+
+before_script:
+  - ./install-travis-deps.sh
+
+script:
+  - run-prove cl-events.test.asd
