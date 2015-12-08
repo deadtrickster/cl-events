@@ -16,4 +16,20 @@
   :components ((:module "src"
                 :serial t
                 :components
-                ((:file "package")))))
+                ((:file "package")
+                 (:module "executors"
+                  :serial t
+                  :components
+                  ((:file "base")
+                   (:file "serial-executor")
+                   (:file "chained-executor")
+                   (:file "threaded-executor")
+                   (:file "pooled-executor")))
+                 (:module "sinks"
+                  :serial t
+                  :components
+                  ((:file "base")
+                   (:file "single-thread-sink")
+                   (:file "multi-thread-sink")))
+                 (:file "events")
+                 (:file "api")))))
