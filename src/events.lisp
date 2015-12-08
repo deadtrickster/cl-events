@@ -17,4 +17,5 @@
   ())
 
 (defclass broadcast-event (multi-thread-sink
-                    pooled-executor))
+                    pooled-executor)
+  ())
