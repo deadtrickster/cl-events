@@ -12,7 +12,8 @@
   :author "Ilya Khaprov <ilya.khaprov@publitechs.com>"
   :licence "MIT"
   :depends-on ("alexandria"
-               "log4cl")
+               "log4cl"
+               "lparallel")
   :components ((:module "src"
                 :serial t
                 :components

@@ -3,7 +3,7 @@
 (defpackage :cl-events
   (:use :cl
         :alexandria)
-  (:export ;; events developer API           
+  (:export ;; events developer API
            #:add-event-handler
            #:remove-event-handler
            #:invoke-event-handlers
@@ -16,13 +16,14 @@
            #:serial-executor
            #:chained-executor
            #:threaded-executor
-           #:pooled-executor          
-           
+           #:pooled-executor
+           #:*thread-pool*
+
            ;; predefined event types
            #:event
            #:simple-event
            #:non-blocking-event
-           
+
            ;; events user API
            #:event+
            #:event-
