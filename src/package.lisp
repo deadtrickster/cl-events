@@ -2,7 +2,8 @@
 
 (defpackage :cl-events
   (:use :cl
-        :alexandria)
+        :alexandria
+        :iterate)
   (:export ;; events developer API
            #:add-event-handler
            #:remove-event-handler
