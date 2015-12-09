@@ -12,12 +12,15 @@
         (log:warn "*thread-pool* not set, using default")
         (setf *thread-pool* (lparallel:make-kernel 5)))))
 
-(defmethod invoke-event-handler ((event pooled-executor) &rest args)
+(defun execute-in-thread-pool (handler args)
+  (lparallel.kernel::submit-raw-task
+   (lparallel.kernel::make-task-instance
+    (lambda ()
+      (apply handler args))
+    :cl-events)
+   (get-thread-pool)))
+
+(defmethod invoke-event-handlers ((event pooled-executor) &rest args)
   (let ((handlers (event-handlers-list event)))
     (loop for handler across handlers
-          do (lparallel.kernel::submit-raw-task
-              (lparallel.kernel::make-task-instance
-               (lambda ()
-                 (apply handler args))
-               :cl-events)
-              (get-thread-pool)))))
+          do (execute-in-thread-pool handler args))))

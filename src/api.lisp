@@ -9,4 +9,4 @@
   (apply #'remove-event-handler (sink tag)))
 
 (defun event! (event &rest args)
-  (apply #'invoke-event-handler event args))
+  (apply #'invoke-event-handlers event args))
