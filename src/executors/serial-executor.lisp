@@ -6,5 +6,5 @@
 
 (defmethod invoke-event-handlers ((event serial-executor) &rest args)
   (let ((handlers (event-handlers-list event)))
-    (loop for handler across handlers
-          do (apply handler args))))
+    (iter (for handler in handlers)
+      (apply handler args))))

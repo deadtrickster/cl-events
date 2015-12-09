@@ -22,5 +22,5 @@
 
 (defmethod invoke-event-handlers ((event pooled-executor) &rest args)
   (let ((handlers (event-handlers-list event)))
-    (loop for handler across handlers
-          do (execute-in-thread-pool handler args))))
+    (iter (for handler in handlers)
+      (execute-in-thread-pool handler args))))

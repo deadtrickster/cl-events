@@ -6,6 +6,6 @@
 
 (defmethod invoke-event-handlers ((event threaded-executor) &rest args)
   (let ((handlers (event-handlers-list event)))
-    (loop for handler across handlers
-          do (bt:make-thread (lambda () (apply handler args))
-                             :name "cl-events-event-handler"))))
+    (iter (for handler in handlers)
+      (bt:make-thread (lambda () (apply handler args))
+                      :name "cl-events-event-handler"))))
