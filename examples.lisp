@@ -1,29 +1,40 @@
+(ql:quickload :cl-events)
 
-(defclass connection ()
-  (on-open
-   on-message
-   on-close))
+(in-package :cl-events)
 
-(defgeneric add-event-handler (sink handler &key &allow-other-keys))
-(defgeneric remove-event-handler (sink handler))
+(defun make-broadcast-event ()
+  (make-instance 'broadcast-event))
 
-(defgeneric invoke-event-handler (executor &rest args))
+;; use event type
 
-(event+ (connection-on-open) (lambda ()))
-(event- (connection-on-open) (lambda ()))
-(event! (connection-on-open) "arg1" "arg2")
+(defclass channel ()
+  ((name :accessor channel-name)
+   (state :initform :closed
+          :accessor :channel-state)
+   ;; events
+   (on-message :initform (make-broadcast-event)
+               :reader channel-on-message)
+   (on-close :initform (make-broadcast-event)
+             :reader channel-on-close)))
 
+(defparameter *channel* (make-instance 'channel))
 
+;; subscribe
 
-(add-event-handler (connection-on-open) (lambda ()))
-(add-event-handler (connection-on-message) (lambda ()) :tag :client1)
-(add-event-handler (connection-on-message) (lambda ()) :tag :client1)
-(add-event-handler (connection-on-message) (lambda ()) :tag :client2)
-(add-event-handler (connection-on-message) (lambda ()) :tag :client3)
-(add-event-handler (connection-on-close) (lambda ()))
+(event+ (channel-on-message *channel*)
+        (lambda (message)
+          (format t "Received: ~a" message)))
 
-(remove-event-handler (connection-on-open) (lambda ()))
-(remove-event-handler (connection-on-messsage) :client1)
+(event+ (channel-on-close *channel*)
+        (lambda (channel)
+          (format t "Closed: ~a" channel)))
 
+;; fire
 
-(invoke-event-handler (connection-on-messsage) "arg1" "arg2" "arg3")
+(event! (channel-on-message *channel*) "Hello from cl-events")
+
+#|Received: Hello from cl-events|#
+
+(event! (channel-on-close *channel*) *channel*)
+
+#|Closed: #<CHANNEL {1003D06703}>|#
