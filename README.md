@@ -1,6 +1,37 @@
 # CL-EVENTS [![Build Status](https://travis-ci.org/deadtrickster/cl-events.svg)](https://travis-ci.org/deadtrickster/cl-events) [![Coverage Status](https://coveralls.io/repos/deadtrickster/cl-events/badge.svg?branch=master&service=github)](https://coveralls.io/github/deadtrickster/cl-events?branch=master)
 
-Events for Common Lisp
+Composable events system for Common Lisp
+
+## Wut
+
+CL-EVENTS sees event as an entity that implements the following APIs:
+
+- `add-event-handler`
+- `remove-event-handler`
+- `event-handlers-list`
+- `invoke-event-handlers`
+
+This was futher re-grouped as
+- Sinks (`add-event-handler`, `remove-event-handler`, `event-handlers-list`)
+- Executors (`invoke-event-handlers`)
+
+CL-EVENTS implements the following SINK types:
+
+- `single-thread-think` - add/remove/list operations must be performed in single thread OR synchronized manually
+- `multi-thread-think` - add/remove/list operations synchronized for you. On available platforms CAS is used.
+
+and EXECUTOR types:
+
+- `serial-executor` - consecutively executes handlers returned by `event-handlers-list`. The next handler executed only after previous one returned
+- `chained-executor` - emulates `serial-executor` for non-blocking word. It assumes you are using [blackbird](https://github.com/orthecreedence/blackbird) as promises implementation. The next handler executed only after promise returned by previous one is resolved.
+- `threaded-executor` - each handler executed in its own newly-created thread.
+- `pooled-executor` - handlers executed in [lparallel](http://lparallel.org/) pool. Note: if`*thread-pool*` is nil new lparallel kernel of size 5 will be automatically created.
+
+CL-EVENTS also exports number of predefined event types:
+-  `event` `(multi-thread-sink serial-executor)`
+-  `simple-event` `(single-thread-sink serial-executor)`
+-  `non-blocking-event` `(single-thread-sink chained-executor)`
+-  `broadcast-event` `(multi-thread-sink pooled-executor)`
 
 ## Example
 
