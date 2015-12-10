@@ -1,4 +1,4 @@
-# CL-EVENTS [![Build Status](https://travis-ci.org/deadtrickster/cl-events.svg)](https://travis-ci.org/deadtrickster/cl-events) [![Coverage Status](https://coveralls.io/repos/deadtrickster/cl-events/badge.svg?branch=master&service=github)](https://coveralls.io/github/deadtrickster/cl-events?branch=master)
+# CL-EVENTS [![Build Status](https://travis-ci.org/deadtrickster/cl-events.svg)](https://travis-ci.org/deadtrickster/cl-events) [![Coverage Status](https://coveralls.io/repos/deadtrickster/cl-events/badge.svg?branch=master&service=github&qwe=1)](https://coveralls.io/github/deadtrickster/cl-events?branch=master)
 
 Composable events system for Common Lisp
 
