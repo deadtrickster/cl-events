@@ -3,6 +3,7 @@
 (defpackage :cl-events.test
   (:use :cl
         :alexandria
+        :iterate
         :prove
         :cl-events))
 

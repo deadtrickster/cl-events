@@ -7,6 +7,7 @@
   (:export ;; events developer API
            #:add-event-handler
            #:remove-event-handler
+           #:event-handlers-list
            #:invoke-event-handlers
 
            ;; sinks
