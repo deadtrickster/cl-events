@@ -1,3 +1,7 @@
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  #+(or sbcl ccl lispworks)
+  (pushnew :cl-events.cas *features*))
+
 (in-package :cl-user)
 
 (defpackage :cl-events.system
@@ -14,11 +18,16 @@
   :depends-on ("alexandria"
                "iterate"
                "log4cl"
-               "lparallel")
+               "lparallel"
+               "blackbird")
   :components ((:module "src"
                 :serial t
                 :components
                 ((:file "package")
+                 (:module "support"
+                  :serial t
+                  :components
+                  (#+cl-events.cas(:file "cas")))
                  (:module "executors"
                   :serial t
                   :components

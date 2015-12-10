@@ -6,7 +6,7 @@
   (apply #'add-event-handler event handler args))
 
 (defun event- (event tag)
-  (apply #'remove-event-handler (sink tag)))
+  (funcall #'remove-event-handler event tag))
 
 (defun event! (event &rest args)
   (apply #'invoke-event-handlers event args))
