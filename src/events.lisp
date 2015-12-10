@@ -22,3 +22,6 @@
 
 (defmethod invoke-event-handlers (event &rest args)
   (invoke-executor event event args))
+
+(defun event-handlers-list (event)
+  (sink-handlers-list event))

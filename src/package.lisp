@@ -27,6 +27,7 @@
            #:non-blocking-event
            #:broadcast-event
            #:invoke-event-handlers
+           #:event-handlers-list
 
            ;; events user API
            #:event+
