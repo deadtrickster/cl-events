@@ -7,8 +7,8 @@
   (:export ;; events developer API
            #:add-event-handler
            #:remove-event-handler
-           #:event-handlers-list
-           #:invoke-event-handlers
+           #:sink-handlers-list
+           #:invoke-executor
 
            ;; sinks
            #:single-thread-sink
@@ -25,6 +25,8 @@
            #:event
            #:simple-event
            #:non-blocking-event
+           #:broadcast-event
+           #:invoke-event-handlers
 
            ;; events user API
            #:event+

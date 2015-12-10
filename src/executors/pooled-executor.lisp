@@ -20,7 +20,7 @@
     :cl-events)
    (get-thread-pool)))
 
-(defmethod invoke-event-handlers ((event pooled-executor) &rest args)
-  (let ((handlers (event-handlers-list event)))
+(defmethod invoke-executor ((executor pooled-executor) sink args)
+  (let ((handlers (sink-handlers-list sink)))
     (iter (for handler in handlers)
       (execute-in-thread-pool handler args))))

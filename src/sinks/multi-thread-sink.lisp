@@ -21,7 +21,7 @@
     (call-next-method)))
 
 #+cl-events.cas
-(defmethod event-handlers-list ((sink multi-thread-sink))
+(defmethod sink-handlers-list ((sink multi-thread-sink))
   (sink-handlers sink))
 
 ;; TODO: maybe implement backoff strategy?

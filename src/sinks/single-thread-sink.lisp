@@ -5,7 +5,7 @@
    (copy :initform (list) :accessor sink-handlers-copy))
   (:documentation "eventhandlers added/removed in single-threaded context."))
 
-(defmethod event-handlers-list ((sink single-thread-sink))
+(defmethod sink-handlers-list ((sink single-thread-sink))
   (sink-handlers-copy sink))
 
 (defmethod add-event-handler ((sink single-thread-sink) handler &key &allow-other-keys)

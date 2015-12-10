@@ -1,3 +1,3 @@
 (in-package :cl-events)
 
-(defgeneric invoke-event-handlers (executor &rest args))
+(defgeneric invoke-executor (executor sink args))

@@ -8,12 +8,14 @@ CL-EVENTS sees event as an entity that implements the following APIs:
 
 - `add-event-handler`
 - `remove-event-handler`
-- `event-handlers-list`
+- `sink-handlers-list`
+- `invoke-executor`
 - `invoke-event-handlers`
 
 This was futher re-grouped as
-- Sinks (`add-event-handler`, `remove-event-handler`, `event-handlers-list`)
-- Executors (`invoke-event-handlers`)
+- Sinks (`add-event-handler`, `remove-event-handler`, `sink-handlers-list`)
+- Executors (`invoke-executor`)
+- Events (`invoke-event-handlers`)
 
 CL-EVENTS implements the following SINK types:
 
@@ -32,6 +34,21 @@ CL-EVENTS also exports number of predefined event types:
 -  `simple-event` `(single-thread-sink serial-executor)`
 -  `non-blocking-event` `(single-thread-sink chained-executor)`
 -  `broadcast-event` `(multi-thread-sink pooled-executor)`
+
+Usually you just need to define your custom sink/executor types and compose events.
+For further customizations `invoke-event-handlers` can be used to select executor at runtime for example,
+
+```
+(defparameter *event-executor* nil)
+
+(defclass bunny-event (multi-thread-sink pooled-executor)
+  ())
+
+(defmethod invoke-event-handlers ((event bunny-event) &rest args)
+  (if *event-executor*
+      (invoke-executor *event-executor* event args)
+      (call-next-method)))
+```
 
 ## Example
 

@@ -19,3 +19,6 @@
 (defclass broadcast-event (multi-thread-sink
                     pooled-executor)
   ())
+
+(defmethod invoke-event-handlers (event &rest args)
+  (invoke-executor event event args))

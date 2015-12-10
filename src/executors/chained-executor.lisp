@@ -4,8 +4,8 @@
   ()
   (:documentation "Emulates serial-executor for non-blocking environments"))
 
-(defmethod invoke-event-handlers ((event chained-executor) &rest args)
-  (let ((handlers (event-handlers-list event)))
+(defmethod invoke-executor ((executor chained-executor) sink args)
+  (let ((handlers (sink-handlers-list sink)))
     (labels ((execute-handler ()
                (apply (pop handlers) args))
              (next()
