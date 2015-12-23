@@ -57,4 +57,15 @@
       (sleep 20)
       (is y 1000))))
 
+(subtest "Events"
+  (subtest "One-shot handler"
+    (let ((event (make-instance 'se-event))
+          (y 0))
+      (iter (for i from 0 to 999)
+        (event+ event (lambda () (incf y)) :once t))
+      (event! event)
+      (is y 1000)
+      (event! event)
+      (is y 1000))))
+
 (finalize)
