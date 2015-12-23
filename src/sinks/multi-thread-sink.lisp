@@ -37,7 +37,7 @@
                       new))))
       (loop
         (when (try-to-add)
-          (return))))))
+          (return handler))))))
 
 (defmethod remove-event-handler ((sink multi-thread-sink) handler)
   (labels ((try-to-remove ()
@@ -48,4 +48,4 @@
                     new))))
     (loop
       (when (try-to-remove)
-        (return)))))
+        (return handler)))))
