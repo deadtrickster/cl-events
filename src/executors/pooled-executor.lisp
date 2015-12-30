@@ -21,6 +21,9 @@
    (get-thread-pool)))
 
 (defmethod invoke-executor ((executor pooled-executor) sink args)
+  (invoke-executor 'pooled-executor sink args))
+
+(defmethod invoke-executor ((executor (eql ' pooled-executor)) sink args)
   (let ((handlers (sink-handlers-list sink)))
     (iter (for handler in handlers)
       (execute-in-thread-pool handler args))))

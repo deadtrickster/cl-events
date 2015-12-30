@@ -5,6 +5,9 @@
   (:documentation "Emulates serial-executor for non-blocking environments"))
 
 (defmethod invoke-executor ((executor chained-executor) sink args)
+  (invoke-executor 'chained-executor sink args))
+
+(defmethod invoke-executor ((executor (eql 'chained-executor)) sink args)
   (let ((handlers (sink-handlers-list sink)))
     (labels ((execute-handler ()
                (apply (pop handlers) args))
