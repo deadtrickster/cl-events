@@ -10,7 +10,7 @@
 (in-package :cl-events.system)
 
 (defsystem :cl-events
-  :version "0.1"
+  :version "0.2"
   :description "Events for Common Lisp"  
   :maintainer "Ilya Khaprov <ilya.khaprov@publitechs.com>"
   :author "Ilya Khaprov <ilya.khaprov@publitechs.com>"
