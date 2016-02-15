@@ -39,6 +39,7 @@
         (when (try-to-add)
           (return handler))))))
 
+#+cl-events.cas
 (defmethod remove-event-handler ((sink multi-thread-sink) handler)
   (labels ((try-to-remove ()
              (let* ((old (sink-handlers sink))
